@@ -13,7 +13,6 @@ for sentence in sentences:
     sentence = re.sub(r"[\/\\\(\)\";,]", "", sentence)
     words = sentence.split()
     for i, word in enumerate(words):
-        # check if word is a number
         if word.isnumeric():
             counter += 1
             words[i] = "{{c" + str(counter) + "::" + word + "}}"
