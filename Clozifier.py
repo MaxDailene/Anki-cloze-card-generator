@@ -2,7 +2,7 @@ import nltk
 import re
 import csv
 
-with open("input.txt", "r",encoding='utf-8') as file:
+with open("input.txt", "r") as file:
     text = file.read()
 
 sentences = nltk.sent_tokenize(text)
