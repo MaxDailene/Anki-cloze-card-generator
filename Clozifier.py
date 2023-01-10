@@ -1,4 +1,5 @@
 import re
+import csv
 
 with open("input.txt", "r") as file:
     text = file.read()
@@ -18,5 +19,6 @@ for sentence in sentences:
             words[i] = "{{c" + str(counter) + "::" + word + "}}"
     clozed_sentences.append(" ".join(words))
 
-with open("output.csv", "w") as file:
-    file.write("\n".join(clozed_sentences))
+with open("output.csv", "w", newline='', encoding='utf-8') as file:
+    writer = csv.writer(file)
+    writer.writerows([[s] for s in clozed_sentences])
