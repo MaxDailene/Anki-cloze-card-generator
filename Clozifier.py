@@ -2,7 +2,7 @@ import nltk
 import re
 import csv
 
-with open("input.txt", "r") as file:
+with open("input.txt", "r",encoding='utf-8') as file:
     text = file.read()
 
 sentences = nltk.sent_tokenize(text)
@@ -13,7 +13,11 @@ for sentence in sentences:
     sentence = re.sub(r"[\/\\\(\)\";,]", "", sentence)
     words = sentence.split()
     for i, word in enumerate(words):
-        if len(word) <= 3:
+        # check if word is a number
+        if word.isnumeric():
+            counter += 1
+            words[i] = "{{c" + str(counter) + "::" + word + "}}"
+        elif len(word) <= 3:
             continue
         else:
             counter += 1
