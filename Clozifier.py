@@ -18,6 +18,7 @@ for sentence in sentences:
             counter += 1
             words[i] = "{{c" + str(counter) + "::" + word + "}}"
     clozed_sentences.append(" ".join(words))
+    counter = 0
 
 with open("output.csv", "w", newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
