@@ -10,13 +10,13 @@ sentences = nltk.sent_tokenize(text)
 clozed_sentences = []
 counter = 0
 for sentence in sentences:
-	sentence = re.sub(r"[\/\\\";,]", "", sentence)
+    sentence = re.sub(r"[\/\\\";,]", "", sentence)
     words = sentence.split()
     for i, word in enumerate(words):
         if word.isnumeric():
             counter += 1
             words[i] = "{{c" + str(counter) + "::" + word + "}}"
-        elif len(word) <= 3:
+        elif len(word) <= 5:
             continue
         else:
             counter += 1
