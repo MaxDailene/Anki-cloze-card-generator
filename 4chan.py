@@ -15,6 +15,7 @@ with open("thread.txt", "w", encoding="utf-8") as f:
         if "com" in post:
             soup = BeautifulSoup(post["com"], "html.parser")
             text = soup.get_text()
+            text = text.replace(">>", "")
             f.write(text)
             f.write("\n\n")
 
