@@ -27,6 +27,6 @@ for sentence in sentences:
     counter = 0
 
 with open("output.csv", "w", newline='', encoding='utf-8') as file:
-    writer = csv.writer(file)
+    writer = csv.writer(file, quoting=csv.QUOTE_NONE, escapechar='\\')
     clozed_sentences = clozed_sentences[:-1]
     writer.writerows([[s] for s in clozed_sentences])
