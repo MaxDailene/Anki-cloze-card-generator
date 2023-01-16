@@ -6,15 +6,13 @@ with open('Engrish.json', 'r', encoding='utf-8') as f:
 converted_data = []
 
 for entry in data1:
-    term = entry['term']
-    altterm = entry['altterm']
-    pos = entry['pos']
-    definition = entry['definition']
-    examples = entry['examples']
-    audio = entry['audio']
-    
-    new_entry = [term, altterm, pos, definition, examples, audio, "", ""]
-    
+    expression = entry['term']
+    reading = entry['altterm']
+    tags = ""
+    rule_ids = ""
+    priority = 0
+    glosses = entry['definition']
+    new_entry = [expression, reading, tags, rule_ids, priority, glosses]
     converted_data.append(new_entry)
 
 with open('converted_file.json', 'w', encoding='utf-8') as f:
