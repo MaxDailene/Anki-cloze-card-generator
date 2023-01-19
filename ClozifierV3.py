@@ -14,7 +14,7 @@ def make_cloze_deletion(sentence, n):
         j = i + n
         while j < len(words) and len(words[j]) < 3:
             j += 1
-        result.append("{{c{}::".format(c_number) + " ".join(words[i:j]) + "}} ")
+        result.append("{{c" + str(c_number) + "::" + " ".join(words[i:j]) + "}}")
         c_number += 1
         i = j
     return "".join(result)
