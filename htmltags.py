@@ -5,14 +5,17 @@ with open("input.txt", "r", encoding='utf-8') as file:
     text = file.read()
 
 delimiter = "##" # the character to use as a delimiter
+ignore_list = ["<br>"] # the list of words or characters to ignore
 clozed_sentences = []
 counter = 0
 for line in text.split(delimiter):
     line = line.strip()
-    line = line.replace("\n", "<br>") # replace linebreaks with <br>
+    line = line.replace("\n", " <br> ") # replace linebreaks with <br>
     words = re.sub(r"[\/\\\"]", "", line).split()
     for i, word in enumerate(words):
-        if word.isnumeric():
+        if word in ignore_list:
+            continue
+        elif word.isnumeric():
             counter += 1
             words[i] = "{{c" + str(counter) + "::" + word + "}}"
         elif len(word) <= 3:
