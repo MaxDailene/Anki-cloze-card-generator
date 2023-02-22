@@ -1,10 +1,8 @@
-import fileinput
 import re
 
-with fileinput.FileInput("filename.txt", inplace=True) as file:
-
-    for line in file:
-
-        line = re.sub(r"{{c\d+::(.*?)}}", r"\1", line)
-
-        print(line, end="")
+with open("input.txt", "r+") as f:
+    text = f.read()
+    new_text = re.sub(r"\{\{c\d+::(.*?)\}\}", r"\1", text)
+    f.seek(0)
+    f.write(new_text)
+    f.truncate()
