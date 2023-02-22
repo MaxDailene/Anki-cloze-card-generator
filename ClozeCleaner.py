@@ -1,14 +1,14 @@
-# A script that removes all cloze deletion cards from a given .txt file.
-
 import re
 
-input_file = "input.txt"
-output_file = "output.txt"
+with open("input.txt", "r", encoding='utf-8') as f:
+    text = f.read()
 
-with open(input_file, "r") as f_in, open(output_file, "w") as f_out:
+pattern = r"\{\{c\d+::(.+?)\}\}"
 
-    for line in f_in:
+cloze_deletions = re.findall(pattern, text)
 
-        line = re.sub(r"{{c\d+::(.*?)}}", r"\1", line)
+for deletion in cloze_deletions:
+    text = re.sub(r"\{\{c\d+::" + re.escape(deletion) + r"\}\}", deletion, text)
 
-        f_out.write(line)
+with open("output.txt", "w", encoding='utf-8') as f:
+    f.write(text)
