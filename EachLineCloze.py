@@ -2,6 +2,8 @@ import nltk
 import re
 import csv
 
+with open("input.txt", "a", encoding='utf-8') as file:
+    file.write('\n.')
 with open("input.txt", "r") as file:
     text = file.read()
 
