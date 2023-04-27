@@ -48,7 +48,7 @@ else:
     examples = soup.find_all('div', class_='example')
 
     word_list = []
-        for i in range(len(words)):
+    for i in range(len(words)):
             word = re.sub(r'\s+', ' ', words[i].text.strip())
             definition = re.sub(r'\s+', ' ', definitions[i].text.strip())
             example_div = examples[i]
