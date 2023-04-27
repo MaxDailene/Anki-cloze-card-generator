@@ -54,7 +54,7 @@ else:
             example_div = examples[i]
             example_a = example_div.find('a', class_='source')
             if example_a:
-                example_a.extract() # exclude the a tag with a source class from the example
+                example_a.extract()
             example = re.sub(r'\s+', ' ', example_div.text.strip())
             word_list.append(word + '\t' + definition + '\t' + example)
 
