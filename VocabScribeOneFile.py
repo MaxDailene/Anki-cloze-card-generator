@@ -48,11 +48,15 @@ else:
     examples = soup.find_all('div', class_='example')
 
     word_list = []
-    for i in range(len(words)):
-        word = re.sub(r'\s+', ' ', words[i].text.strip())
-        definition = re.sub(r'\s+', ' ', definitions[i].text.strip())
-        example = re.sub(r'\s+', ' ', examples[i].text.strip())
-        word_list.append(word + '\t' + definition + '\t' + example)
+        for i in range(len(words)):
+            word = re.sub(r'\s+', ' ', words[i].text.strip())
+            definition = re.sub(r'\s+', ' ', definitions[i].text.strip())
+            example_div = examples[i]
+            example_a = example_div.find('a', class_='source')
+            if example_a:
+                example_a.extract()
+            example = re.sub(r'\s+', ' ', example_div.text.strip())
+            word_list.append(word + '\t' + definition + '\t' + example)
 
     filename = re.sub('[^\w\s-]', '', soup.title.text.strip())
     filename = filename.replace(' ', '_') + '.txt'
