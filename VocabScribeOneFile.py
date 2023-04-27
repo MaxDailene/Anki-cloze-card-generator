@@ -2,20 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-# Enter the Vocabulary.com link
 url = input("Enter Vocabulary.com link: ")
 
-# Get the HTML content of the webpage
 response = requests.get(url)
 html_content = response.text
 
-# Parse the HTML content using BeautifulSoup
 soup = BeautifulSoup(html_content, 'html.parser')
 
-# Check for the presence of the "wordlist" class
 wordlist = soup.find_all('li', class_='wordlist')
 if wordlist:
-    # Create a list to store the links
     links = []
     for li in wordlist:
         header = li.find('div', class_='header')
@@ -25,7 +20,6 @@ if wordlist:
                 link = "https://www.vocabulary.com/" + h2.find('a')['href']
                 links.append(link)
 
-    # Scrape each link using the original script
     word_list = []
     for link in links:
         response = requests.get(link)
@@ -45,12 +39,10 @@ if wordlist:
         f.write('\n'.join(word_list))
     print(f"Words, definitions, and examples have been written to {filename}.")
 else:
-    # Find all words and their respective definitions and examples
     words = soup.find_all('a', class_='word')
     definitions = soup.find_all('div', class_='definition')
     examples = soup.find_all('div', class_='example')
 
-    # Create a list to store the words, their definitions and examples
     word_list = []
     for i in range(len(words)):
         word = re.sub(r'\s+', ' ', words[i].text.strip())
@@ -58,7 +50,6 @@ else:
         example = re.sub(r'\s+', ' ', examples[i].text.strip())
         word_list.append(word + '\t' + definition + '\t' + example)
 
-    # Write the words, their definitions and examples to a text file
     filename = re.sub('[^\w\s-]', '', soup.title.text.strip())
     filename = filename.replace(' ', '_') + '.txt'
     with open(filename, 'w', encoding='utf-8') as f:
