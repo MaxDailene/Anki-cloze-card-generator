@@ -31,11 +31,11 @@ if wordlist:
         for i in range(len(words)):
             word = re.sub(r'\s+', ' ', words[i].text.strip())
             definition = re.sub(r'\s+', ' ', definitions[i].text.strip())
-            example_div = examples[i]
-            example_a = example_div.find('a', class_='source')
+            example_div = examples[i] if i < len(examples) else None
+            example_a = example_div.find('a', class_='source') if example_div else None
             if example_a:
                 example_a.extract()
-            example = re.sub(r'\s+', ' ', example_div.text.strip())
+            example = re.sub(r'\s+', ' ', example_div.text.strip()) if example_div else ''
             word_list.append(word + '\t' + definition + '\t' + example)
         filename = re.sub('[^\w\s-]', '', soup.title.text.strip())
         filename = filename.replace(' ', '_') + '.txt'
@@ -46,21 +46,18 @@ else:
     words = soup.find_all('a', class_='word')
     definitions = soup.find_all('div', class_='definition')
     examples = soup.find_all('div', class_='example')
-
     word_list = []
     for i in range(len(words)):
-            word = re.sub(r'\s+', ' ', words[i].text.strip())
-            definition = re.sub(r'\s+', ' ', definitions[i].text.strip())
-            example_div = examples[i]
-            example_a = example_div.find('a', class_='source')
-            if example_a:
-                example_a.extract()
-            example = re.sub(r'\s+', ' ', example_div.text.strip())
-            word_list.append(word + '\t' + definition + '\t' + example)
-
+        word = re.sub(r'\s+', ' ', words[i].text.strip())
+        definition = re.sub(r'\s+', ' ', definitions[i].text.strip())
+        example_div = examples[i] if i < len(examples) else None
+        example_a = example_div.find('a', class_='source') if example_div else None
+        if example_a:
+            example_a.extract()
+        example = re.sub(r'\s+', ' ', example_div.text.strip()) if example_div else ''
+        word_list.append(word + '\t' + definition + '\t' + example)
     filename = re.sub('[^\w\s-]', '', soup.title.text.strip())
     filename = filename.replace(' ', '_') + '.txt'
     with open(filename, 'w', encoding='utf-8') as f:
         f.write('\n'.join(word_list))
-
     print(f"Words, definitions, and examples have been written to {filename}.")
