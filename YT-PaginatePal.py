@@ -4,7 +4,8 @@ import subprocess
 
 video_url = input("Enter the YouTube video URL: ")
 
-subprocess.run(["yt-dlp", "--skip-download", "--write-comments", video_url])
+json_filename = "video_comments"
+subprocess.run(["yt-dlp", "--skip-download", "--write-comments", "-o", json_filename, video_url])
 
 def generate_comment_html(comment):
     author = comment["author"]
@@ -46,7 +47,7 @@ def generate_pagination(current_page, total_pages):
 
     return pagination
 
-with open('test.json', 'r', encoding='utf-8') as json_file:
+with open('video_comments.info.json', 'r', encoding='utf-8') as json_file:
     data = json.load(json_file)
     comments = data["comments"]
     comments_per_page = 50
