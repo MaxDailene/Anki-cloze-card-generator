@@ -1,5 +1,10 @@
 import json
 import math
+import subprocess
+
+video_url = input("Enter the YouTube video URL: ")
+
+subprocess.run(["yt-dlp", "--skip-download", "--write-comments", video_url])
 
 def generate_comment_html(comment):
     author = comment["author"]
